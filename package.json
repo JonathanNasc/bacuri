@@ -1,0 +1,23 @@
+{
+  "name": "bacuri",
+  "version": "1.0.0",
+  "description": "A card game simulator for design proposes",
+  "main": "poty.ts",
+  "scripts": {
+    "start": "ts-node poty.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "const bases_limit = 4;"
+  },
+  "keywords": [
+    "game design",
+    "simulation"
+  ],
+  "author": ",",
+  "license": "ISC",
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  }
+}
