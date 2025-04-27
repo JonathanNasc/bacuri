@@ -16,15 +16,37 @@ type Decks = {
 }
 
 enum Strategy {
-  basic_precoce = 'basic_precoce', // segue roteiro de melhor jogada possível, mas pede chega o mais rápido que as regras permitirem
-  basic_moderado = 'basic_moderado', // segue roteiro de melhor jogada possível, pede chega mais ou menos no meio do jogo
-  basic_demorado = 'basic_demorado', // segue roteiro de melhor jogada possível, nunca pede chega
-  focused_em_onça_precoce = 'focused_em_onça_precoce', // tenta caçar as onças e jogá-las, pede chega o mais rápido que pode
-  focused_em_onça_moderado = 'focused_em_onça_moderado', // tenta caçar as onças, pede chega no meio do jogo
-  focused_em_onça_demorado = 'focused_em_onça_demorado', // tenta caçar as onças e nunca pede chega
-  energizado_precoce = 'energizado_precoce', //completa todas as energias, então segue o básico precoce
-  energizado_moderado = 'energizado_moderado', //completa todas, então segue o básico moderado
-  energizado_demorado = 'energizado_demorado', //completa todas, então segue o básico demorado
+  basic = 'basic',
+  focado_em_onça = 'focado_em_onça',
+  focado_em_abelha = 'focado_em_abelha',
+  focado_em_beija_flor = 'focado_em_beija_flor',
+  focado_em_capivara = 'focado_em_capivara',
+  focado_em_energia = 'focado_em_energia',
+  focado_em_cartas_baixas = 'focado_em_cartas_baixas',
+  precoce = 'precoce',
+  moderado = 'moderado',
+  demorado = 'demorado',
+  basic_precoce =  `${Strategy.basic}_${Strategy.precoce}`, // segue roteiro de melhor jogada possível, mas pede chega o mais rápido que as regras permitirem
+  basic_moderado = `${Strategy.basic}_${Strategy.moderado}`, // segue roteiro de melhor jogada possível, pede chega mais ou menos no meio do jogo
+  basic_demorado = `${Strategy.basic}_${Strategy.demorado}`, // segue roteiro de melhor jogada possível, pede chega mais ou menos no meio do jogo
+  focado_em_abelha_precoce =  `${Strategy.focado_em_abelha}_${Strategy.precoce}`,
+  focado_em_abelha_moderado = `${Strategy.focado_em_abelha}_${Strategy.moderado}`,
+  focado_em_abelha_demorado = `${Strategy.focado_em_abelha}_${Strategy.demorado}`,
+  focado_em_beija_flor_precoce =  `${Strategy.focado_em_abelha}_${Strategy.precoce}`,
+  focado_em_beija_flor_moderado = `${Strategy.focado_em_abelha}_${Strategy.moderado}`,
+  focado_em_beija_flor_demorado = `${Strategy.focado_em_abelha}_${Strategy.demorado}`,
+  focado_em_capivara_precoce =  `${Strategy.focado_em_capivara}_${Strategy.precoce}`,
+  focado_em_capivara_moderado = `${Strategy.focado_em_capivara}_${Strategy.moderado}`,
+  focado_em_capivara_demorado = `${Strategy.focado_em_capivara}_${Strategy.demorado}`,
+  focado_em_onça_precoce =  `${Strategy.focado_em_onça}_${Strategy.precoce}`,
+  focado_em_onça_moderado = `${Strategy.focado_em_onça}_${Strategy.moderado}`,
+  focado_em_onça_demorado = `${Strategy.focado_em_onça}_${Strategy.demorado}`,
+  focado_em_energia_precoce  = `${Strategy.focado_em_energia}_${Strategy.precoce}`,
+  focado_em_energia_moderado = `${Strategy.focado_em_energia}_${Strategy.moderado}`,
+  focado_em_energia_demorado = `${Strategy.focado_em_energia}_${Strategy.demorado}`,
+  focado_em_cartas_baixas_precoce  = `${Strategy.focado_em_cartas_baixas}_${Strategy.precoce}`,
+  focado_em_cartas_baixas_moderado = `${Strategy.focado_em_cartas_baixas}_${Strategy.moderado}`,
+  focado_em_cartas_baixas_demorado = `${Strategy.focado_em_cartas_baixas}_${Strategy.demorado}`,
 }
 
 type BaseAmount = 0|1|2|3|4;
@@ -143,11 +165,6 @@ const playerBuyOneCard = (player: Player, deck: Array<Card>) => player.hand.push
 const sortByHigherCard = (a: Card, b: Card) => b[0] - a[0];
 const sortByHigherNaipe = (a: Card, b: Card) => getIndexOfNaipe(b[1]) - getIndexOfNaipe(a[1]);
 
-const sortHandByStrongerCardToWeaker = (player: Player) => {
-  player.hand.sort(sortByHigherCard);
-  player.hand.sort(sortByHigherNaipe);
-};
-
 const canCardBePlaced = (player: Player, [cardValue, cardNaipe]: Card) => {
   const naipeBaseCount = player.bases[cardNaipe];
   const naipeStackCount = player.stacks[cardNaipe].length;
@@ -163,14 +180,6 @@ const getNaipeByIndex = (naipeIndex: number): Naipe => (
   Naipe[Object.values(Naipe)[naipeIndex]]
 )
 
-const getTotalCardsPlaced = (player: Player) => {
-  let sum = 0;
-  for (let naipe of Object.values(Naipe)) {
-    sum += player.stacks[naipe].length;
-  }
-  return sum;
-}
-
 const sumValuesFromNaipeKeys = (getValueByNaipe: (n: Naipe) => number) => {
   let sum = 0;
   for (let naipe of Object.values(Naipe)) {
@@ -179,8 +188,41 @@ const sumValuesFromNaipeKeys = (getValueByNaipe: (n: Naipe) => number) => {
   return sum;
 }
 
+const makeFocadoEmAbelhaStrategyBase = (player: Player, decks: Decks) => {
+  //verifica se alguma das cartas abelha já consegue jogar
+  //coloca energia na base abelha se não tiver no limite
+  //descarta uma carta que não é abelha e compra outra da pilha de descartes se for abelha, ou da pilha de compras
+  //verifica se uma das cartas de abelha da pilha de descartes pode ser substituida e faz sua jogada unica
+  //descarta uma carta abelha alta demais e compra outra da pilha de descartes se for abelha, ou da pilha de compras
+}
+
+const makeFocadoEmBeijaFlorStrategyBase = (player: Player, decks: Decks) => {
+  //verifica se alguma das cartas beija flor já consegue jogar
+  //coloca energia na base beija flor, ou anterior se não tiver no limite
+  //descarta uma carta que não é beija flor e compra outra da pilha de descartes se for beija flor, ou da pilha de compras
+  //verifica se uma das cartas de beija flor da pilha de descartes pode ser substituida e faz sua jogada unica
+  //descarta uma carta beija flor alta demais e compra outra da pilha de descartes se for beijar, ou da pilha de compras
+}
+
+const makeFocadoEmCapivaraStrategyBase = (player: Player, decks: Decks) => {
+  //verifica se alguma das cartas capivara já consegue jogar
+  //coloca energia na base capivara se não tiver no limite, ou nas anteriores se necessario
+  //descarta uma carta que não é abelha e compra outra da pilha de descartes se for abelha, ou da pilha de compras
+  //verifica se uma das cartas de abelha da pilha de descartes pode ser substituida e faz sua jogada unica
+  //descarta uma carta abelha alta demais e compra outra da pilha de descartes se for abelha, ou da pilha de compras
+}
+
+const makeFocadoEmOnçaStrategyBase = (player: Player, decks: Decks) => {
+  //verifica se alguma das cartas onça já consegue jogar
+  //coloca energia na base onça se não tiver no limite, ou nas anteriores se necessario
+  //descarta uma carta que não é onça e compra outra da pilha de descartes se for onça, ou da pilha de compras
+  //verifica se uma das cartas de onça da pilha de descartes pode ser substituida e faz sua jogada unica
+  //descarta uma carta onça alta demais e compra outra da pilha de descartes se for onça, ou da pilha de compras
+}
+
 const makeBasicStrategyBase = (player: Player, decks: Decks) => {
-  sortHandByStrongerCardToWeaker(player);
+  player.hand.sort(sortByHigherCard);
+  player.hand.sort(sortByHigherNaipe);
 
   // joga maior carta possível que tenha seu requisito cumprido
   for (let i = player.hand.length - 1; i >= 0; i--) {
@@ -218,29 +260,62 @@ const makeBasicStrategyBase = (player: Player, decks: Decks) => {
   playerBuyOneCard(player, decks.buyStack);
 }
 
+const sayChegaAccordinglyToStrategy = (player: Player, adversary: Player) => {
+  if (player.strategy.includes(Strategy.precoce) && canSayChega(player, adversary)) {
+    player.wantToStop = true;
+    return;
+  }
+
+  if (player.strategy.includes(Strategy.moderado) && canSayChega(player, adversary)) {
+    const cardsPlacedToSayChegaForModeratePlayers = getRandomArbitrary(5, 10);
+    const totalCardPlaces = sumValuesFromNaipeKeys((naipe: Naipe) => player.stacks[naipe].length);
+    const willSayChega = totalCardPlaces >= cardsPlacedToSayChegaForModeratePlayers;
+    if (canSayChega(player, adversary) && willSayChega) {
+      player.wantToStop = true;
+      return;
+    }
+  }
+}
+
 const makeActionFollowingStrategy = (player: Player, adversary: Player, decks: Decks) => {
-  switch (player.strategy) {
-    case Strategy.basic_precoce:
-      if (canSayChega(player, adversary)) {
-        player.wantToStop = true;
-        break;
-      }
+  sayChegaAccordinglyToStrategy(player, adversary);
+  if (player.wantToStop) {
+    return;
+  }
 
-      makeBasicStrategyBase(player, decks);
-      break;
-    case Strategy.basic_moderado:
-      const cardsPlacedToSayChegaForModeratePlayers = getRandomArbitrary(5, 10);
-      const totalCardPlaces = sumValuesFromNaipeKeys((naipe: Naipe) => player.stacks[naipe].length);
-      const willSayChega = totalCardPlaces >= cardsPlacedToSayChegaForModeratePlayers;
-      if (canSayChega(player, adversary) && willSayChega) {
-        player.wantToStop = true;
-        break;
-      }
+  if (player.strategy.includes(Strategy.basic)) {
+    makeBasicStrategyBase(player, decks);
+    return;
+  }
 
-      makeBasicStrategyBase(player, decks);
-      break;
-    default:
-      makeBasicStrategyBase(player, decks);
+  if (player.strategy.includes(Strategy.focado_em_abelha)) {
+    makeFocadoEmAbelhaStrategyBase(player, decks);
+    return;
+  }
+
+  if (player.strategy.includes(Strategy.focado_em_beija_flor)) {
+    makeFocadoEmBeijaFlorStrategyBase(player, decks);
+    return;
+  }
+
+  if (player.strategy.includes(Strategy.focado_em_capivara)) {
+    makeFocadoEmCapivaraStrategyBase(player, decks);
+    return;
+  }
+
+  if (player.strategy.includes(Strategy.focado_em_onça)) {
+    makeFocadoEmOnçaStrategyBase(player, decks);
+    return;
+  }
+
+  if (player.strategy.includes(Strategy.focado_em_energia)) {
+    // todo
+    return;
+  }
+
+  if (player.strategy.includes(Strategy.focado_em_cartas_baixas)) {
+    // todo
+    return;
   }
 }
 
