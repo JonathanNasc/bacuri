@@ -48,14 +48,54 @@ Embaralhe as cartas selecionadas e distribua quatro para cada jogador. Deixe o r
 
 3. Agrupe os marcadores a disposição dos jogadores no centro da mesa. Para referência, chamaremos os marcadores de sementes.
 
+### Cartas oficiais
+
+| Número da carta | Naipe       | Nome                                    | Tamanho (cm) | Classe/Subfilo     | Vale 1 semente | Papel ecológico                      |
+|-----------------|-------------|-----------------------------------------|--------------|---------------------|----------------|--------------------------------------|
+| 1               | Abelha      | Mosquito-da-dengue (Aedes aegypti)      | 0,5          | Inseto              | não            | Presa/outros                         |
+| 2               | Abelha      | Joaninha (Coccinellidae)                | 1            | Inseto              | sim            | Predador                             |
+| 3               | Abelha      | Cupim (Isoptera)                        | 1,2          | Inseto              | sim            | Presa/outros                         |
+| 4               | Abelha      | Abelha (Apis mellifera)                 | 1,5          | Inseto              | sim            | Polinizador                          |
+| 5               | Abelha      | Peixe-lápis (Nannostomus eques)        | 2,5          | Peixes              | não            | Presa/outros                         |
+| 6               | Abelha      | Perereca-de-vidro (Hyalinobatrachium)   | 3            | Anfíbio             | sim            | Predador                             |
+| 7               | Abelha      | Borboleta-azul (Morpho spp.)            | 5            | Inseto              | sim            | Polinizador                          |
+| 8               | Abelha      | Lagarto (Stenocercus scirtetellus)      | 6            | Réptil              | não            | Predador                             |
+| 9               | Abelha      | Rã-do-brejo-pequena (Hypsiboas semilineatus) | 8     | Anfíbio             | sim            | Predador                             |
+| 10              | Abelha      | Bicho-pau (Phasmatodea)                 | 9            | Inseto              | não            | Presa/outros                         |
+| 1               | Beija-flor  | Beija-flor (Trochilidae)                | 11           | Ave                 | sim            | Polinizador                          |
+| 2               | Beija-flor  | Lagarto pequeno (Heterodactylus lundii) | 12           | Réptil              | não            | Predador                             |
+| 3               | Beija-flor  | Lagartixa (Hemidactylus mabouia)        | 13           | Réptil              | sim            | Predador                             |
+| 4               | Beija-flor  | Rato-do-campo (Akodon spp.)             | 14           | Mamífero            | sim            | Dispersor de sementes                |
+| 5               | Beija-flor  | Sapo-cururu (Rhinella marina)           | 15           | Anfíbio             | não            | Predador                             |
+| 7               | Beija-flor  | Calango-do-Cerrado (Tropidurus oreadicus) | 24         | Réptil              | sim            | Predador                             |
+| 8               | Beija-flor  | Preá (Cavia aperea)                     | 25           | Mamífero            | sim            | Dispersor de sementes                |
+| 9               | Beija-flor  | Mico-leão-dourado (Leontopithecus rosalia) | 30       | Mamífero            | sim            | Dispersor de sementes                |
+| 1               | Capivara    | Tatu-galinha (Dasypus novemcinctus)     | 50           | Mamífero            | sim            | Dispersor de sementes                |
+| 2               | Capivara    | Preguiça-marmota                        | 52           | Mamífero            | sim            | Dispersor de sementes                |
+| 3               | Capivara    | Macaco-prego (Sapajus spp.)             | 70           | Mamífero            | sim            | Dispersor de sementes                |
+| 4               | Capivara    | Tartaruga-da-amazônia                   | 80           | Réptil              | sim            | Dispersor de sementes                |
+| 5               | Capivara    | Tamanduá-mirim (Tamandua tetradactyla) | 88           | Mamífero            | sim            | Predador                             |
+| 6               | Capivara    | Cachorra-larga (Hydrolycus scomberoides)| 90           | Peixes              | não            | Predador                             |
+| 7               | Capivara    | Harpia                                  | 99           | Ave                 | não            | Predador                             |
+| 8               | Capivara    | Capivara (Hydrochoerus hydrochaeris)    | 134          | Mamífero            | não            | Presa/outros, Dispersor de sementes  |
+| 1               | Onça        | Lobo-guará (Chrysocyon brachyurus)      | 147          | Mamífero            | sim            | Predador, Dispersor de sementes      |
+| 2               | Onça        | Ema (Rhea americana)                    | 170          | Ave                 | sim            | Dispersor de sementes                |
+| 3               | Onça        | Onça-pintada (Panthera onca)            | 180          | Mamífero            | não            | Predador                             |
+| 5               | Onça        | Cervo-do-pantanal (Blastocerus dichotomus) | 200        | Mamífero            | sim            | Presa/outros, Dispersor de sementes  |
+| 4               | Onça        | Boto-cor-de-rosa (Inia geoffrensis)     | 250          | Mamífero            | sim            | Predador, Dispersor de sementes      |
+| 6               | Onça        | Pirarucu                                | 300          | Peixes              | não            | Predador                             |
+| 7               | Onça        | Sucuri-verde (Eunectes murinus)         | 500          | Réptil              | não            | Predador                             |
+
+Você gostaria que essa tabela fosse exportada como um arquivo `.md` também?
+
 ### Início do jogo e ações possíveis
 
 A pessoa que plantou uma semente mais recentemente começa. Em sua vez, cada jogador poderá escolher uma entre as seguintes ações:
 
 1. **Colocar uma semente em uma de suas bases**. Cada base pode ter até quatro sementes. Só é possível colocar uma semente em uma base, se a base a esquerda dela possuir pelo menos a mesma quantidade de sementes que ambas terão ao fim da ação. Por exemplo, se a base de naipe abelha possuir duas sementes, a base beija-flor possuir uma, e as demais nenhuma, só será possível colocar uma terceira semente na base abelha, ou uma segunda semente na base beija-flor, ou a primeira semente na base capivara.
-1. **Colocar uma carta diante da base correspondente**. Para que uma carta seja posicionada diante de sua base, é necessário que a quantidade de sementes nessa base, somado a quantidade de cartas desse mesmo naipe já posicionadas, seja pelo menos igual ao número dessa carta. Por exemplo, se a base abelha já possui três sementes e duas cartas do mesmo naipe diante dela, já é possível posicionar qualquer carta do naipe abelha de número até cinco. Coringas não exigem sementes para ser posicionados e adicionam uma semente extra a soma total da base.
-1. **Comprar uma carta**. Pode ser a carta no topo da pilha de compras, ou a carta no topo da pilha de descartes. Se o jogador já possuir o limite de cartas na mão, que é quatro, deverá descartar uma delas antes de comprar uma nova.
-1. **Dizer pronto**. Contanto que todos os jogadores já tenham posicionado uma carta em cada base, ou quatro cartas em uma das bases, quando estiver satisfeito, o jogador da vez pode encerrar a partida, dando aos demais jogadores a oportunidade de realizar sua última ação.
+1. **Colocar uma carta diante da base correspondente**. Para que uma carta da mão do jogador, ou diretamente da mesa, seja posicionada na pilha de cartas da base correspondente, é necessário que a quantidade de sementes nessa base, somado a quantidade de cartas já posicionadas desse mesmo naipe que possuem ícone de semente, seja pelo menos igual ao número dessa carta. Por exemplo, se a base abelha já possui três sementes e duas cartas com o ícone de semente do mesmo naipe diante dela, já é possível posicionar qualquer carta do naipe abelha de número até cinco. Coringas não exigem sementes para ser posicionados e adicionam uma semente extra a soma total da base. Nota: a posição das cartas em cada pilha pode ser remanejado ao longo do jogo para que a pontuação de maior sequência seja mais facilmente calculada, mas os coringas não substituem números faltantes.
+1. **Comprar uma carta**. Adiciona-se a mão a carta no topo da pilha de compras. Se o jogador já possuir o limite de quatro cartas na mão, deverá descartar uma delas colocando-a por último no baralho de compras, antes de comprar uma nova.
+1. **Dizer pronto**. Contanto que todos os jogadores já tenham posicionado uma carta em cada base, ou quatro cartas em uma das bases, quando estiver satisfeito, o jogador da vez pode dizer "pronto", dando aos demais jogadores a oportunidade de realizar sua última ação e então encerra-se a partida.
 
 ### Expansão do jogo com cartas bonus
 
@@ -67,22 +107,26 @@ Algumas dessas cartas somam pontos extras como recompensa para realizações dur
 
 As cartas bônus são:
 
-1. Um ponto para cada ave
-1. Um ponto para cada réptil
-1. Um ponto para cada predador
-1. Um ponto para cada polinizador
-1. Um ponto para cada animal do bioma Amazônia
-1. Um ponto para cada animal do bioma Serrado e Pampa
-1. Um ponto para cada animal do bioma Pantanal
-1. Um ponto para cada animal do bioma Caatinga e Mata Atlântica
-1. Substitua a maior carta posicionada diante de uma das bases por outra qualquer da pilha de descartes do mesmo naipe
+1. **Mamíferos**: Três pontos se tiver X ou mais mamíferos (x = 6 em partidas com 2 jogadores, x = 5 em partidas com três, x = 4 em partidas com quatro)
+1. **Insetos**: Dois pontos se tiver X ou mais insetos (x = 3 em partidas com 2 jogadores, x = 2 em partidas com três, x = 1 em partidas com quatro)
+1. **Réptil**: Dois pontos se tiver X ou mais réptil (x = 3 em partidas com 2 jogadores, x = 2 em partidas com três, x = 1 em partidas com quatro)
+1. **Peixes**:Dois pontos se tiver X ou mais peixes (x = 2 em partidas com 2 jogadores, x = 1 em partidas com três, x = 1 em partidas com quatro)
+1. **Aves**:Dois pontos se tiver X ou mais aves (x = 2 em partidas com 2 jogadores, x = 1 em partidas com três, x = 1 em partidas com quatro)
+1. **Anfíbio**:Dois pontos se tiver X ou mais Anfíbio (x = 2 em partidas com 2 jogadores, x = 1 em partidas com três, x = 1 em partidas com quatro)
+
+1. **Dispensores**: Três pontos se tiver X ou mais dispensores de sementes (x = 6 em partidas com 2 jogadores, x = 5 em partidas com três, x = 4 em partidas com quatro)
+1. **Predadores**: Três pontos se tiver no máximo X predadores (x = 7 em partidas com 2 jogadores, x = 6 em partidas com três, x = 5 em partidas com quatro)
+1. **Presas/outros**: Dois pontos se tiver X ou mais presas/outros (x = 3 em partidas com 2 jogadores, x = 2 em partidas com três, x = 1 em partidas com quatro)
+1. **Polinizador**: Dois pontos se tiver X ou mais polinizadores (x = 2 em partidas com 2 jogadores, x = 1 em partidas com três, x = 1 em partidas com quatro)
+
+1. Reponha todas as cartas da mesa, escolha até uma para jogar, caso tenha sementes suficientes, e passe a vez
 1. Descarte qualquer quantidade de cartas e compre novas cartas até o limite da mão
 1. Pronto nada! Ignora quando alguém diz "pronto" fazendo a partida continuar
 1. Permite olhar três cartas bônus e escolher uma delas
 
 ### Fim de jogo e contagem de pontos
 
-Se ninguém disser pronto, quando o baralho de compras acabar, embaralhe a pilha de descartes para que ela seja a nova pilha de compras. Quando as cartas se esgotarem, o jogo termina.
+Se ninguém disser pronto, quando o baralho de compras se esgotarem, o jogo termina.
 
 Anote a pontuação de cada jogador em cada uma das seguinte categorias:
 
@@ -95,3 +139,5 @@ Anote a pontuação de cada jogador em cada uma das seguinte categorias:
 1. Pontos que cumprem as condições de cartas bônus
 
 Some tudo, o jogador com mais pontos vence. Caso empate, ambos compartilham a vitória.
+
+https://coolors.co/palette/cfdbd5-e8eddf-f5cb5c-242423-333533
